@@ -18,7 +18,8 @@ To initiate the database use a Flask shell session with the appropriate
 configuration,
 
 ```
-$ FLASK_APP="hotdesk:create_app('<config>')" flask shell
+$ export FLASK_APP="hotdesk:create_app('<config>')"
+$ flask shell
 ...
 >>> db.create_all()
 >>> exit()
@@ -27,12 +28,15 @@ $ FLASK_APP="hotdesk:create_app('<config>')" flask shell
 To run the app,
 
 ```
-$ FLASK_APP="hotdesk:create_app('<config>')" flask run
+$ export FLASK_APP="hotdesk:create_app('<config>')"
+$ flask run
 ```
 
 If no configuration is specified, the "development" configuration will be used.
 For example,
 
 ```
-$ FLASK_APP=hotdesk flask run
+$ export FLASK_APP=hotdesk flask run
 ```
+
+> You can also set `FLASK_APP` in `.flaskenv`.
