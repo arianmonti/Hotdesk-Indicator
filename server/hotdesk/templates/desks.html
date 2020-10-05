@@ -17,7 +17,7 @@
             <th scope="row">{{ desk.id }}</th>
             <td>{{ desk.name }}</td>
             {% if desk.is_booked() %}
-            <td>{{ "Booked until {}".format(desk.active_booking().until_when.strftime('%H:%M')) }}</td>
+            <td>Booked until {{ moment(desk.active_booking().until_when).calendar() }}</td>
             {% else %}
             <td>Free</td>
             {% endif %}
