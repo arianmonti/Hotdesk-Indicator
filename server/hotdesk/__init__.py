@@ -19,7 +19,8 @@ def create_app(test_config=None):
         SQLALCHEMY_DATABASE_URI=(
             "sqlite:///" + os.path.join(app.instance_path, "data.sqlite")
             ),
-        SQLALCHEMY_TRACK_MODIFICATIONS=False
+        SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        PER_PAGE=10
         )
 
     pathlib.Path(app.instance_path).mkdir(parents=True, exist_ok=True)

@@ -4,7 +4,8 @@ from .forms import BookingForm
 from .. import db
 from ..models import Booking, Desk
 from datetime import datetime
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, current_app
+from flask_paginate import Pagination
 
 
 @main.route('/')
@@ -28,8 +29,8 @@ def book():
             name=form.name.data,
             desk_id=form.desk.data,
             from_when=from_when,
-            until_when=until_when
-            )
+            until_when=until_when,
+        )
         # Ensure the booking does not overlap with existing bookings
         bookings = Booking.query.filter_by(desk_id=form.desk.data).all()
         if any((booking.overlap(other) for other in bookings)):
@@ -56,12 +57,32 @@ def book():
 @main.route('/bookings')
 def bookings():
     """Route to show all bookings."""
-    bookings = Booking.query.all()
-    return render_template('bookings.html', bookings=bookings)
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['PER_PAGE']
+    bookings = Booking.query.paginate(page, per_page, False).items
+    pagination = Pagination(
+        page=page,
+        per_page=per_page,
+        total=len(Booking.query.all()),
+        css_framework='bootstrap3',
+    )
+    return render_template(
+        'bookings.html', bookings=bookings, per_page=per_page, pagination=pagination
+    )
 
 
 @main.route('/desks')
 def desks():
     """Route to show all desks and their current status."""
-    desks = Desk.query.all()
-    return render_template('desks.html', desks=desks)
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['PER_PAGE']
+    desks = Desk.query.paginate(page, per_page, False).items
+    pagination = Pagination(
+        page=page,
+        per_page=per_page,
+        total=len(Desk.query.all()),
+        css_framework='bootstrap3',
+    )
+    return render_template(
+        'desks.html', desks=desks, per_page=per_page, pagination=pagination
+    )
