@@ -11,7 +11,7 @@ setup(
         "flask",
         "flask_bootstrap",
         "flask_migrate",
-        "flask_moment"
+        "flask_moment",
         "flask_restful",
         "flask_sqlalchemy",
         "flask_wtf",
