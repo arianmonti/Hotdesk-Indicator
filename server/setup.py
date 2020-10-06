@@ -11,6 +11,7 @@ setup(
         "flask",
         "flask_bootstrap",
         "flask_migrate",
+        "flask_paginate",
         "flask_restful",
         "flask_sqlalchemy",
         "flask_wtf"
