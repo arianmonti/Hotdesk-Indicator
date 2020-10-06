@@ -4,7 +4,14 @@ from .forms import BookingForm
 from .. import db
 from ..models import Booking, Desk
 from datetime import datetime
-from flask import render_template, request, redirect, url_for, flash, current_app
+from flask import (
+    render_template,
+    request,
+    redirect,
+    url_for,
+    flash,
+    current_app
+)
 from flask_paginate import Pagination
 
 
@@ -67,7 +74,10 @@ def bookings():
         css_framework='bootstrap3',
     )
     return render_template(
-        'bookings.html', bookings=bookings, per_page=per_page, pagination=pagination
+        'bookings.html',
+        bookings=bookings,
+        per_page=per_page,
+        pagination=pagination
     )
 
 
